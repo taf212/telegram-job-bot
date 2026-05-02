@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+credentials.json
+*.log
+.git/
+.gitignore
+test-bot.mjs
+README.md

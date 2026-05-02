@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: telegram-job-bot
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/app.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TELEGRAM_MODE
+        value: webhook
+      - key: PORT
+        value: 3000
+      # Les variables secrètes sont à renseigner manuellement dans le dashboard Render :
+      # TELEGRAM_BOT_TOKEN
+      # TELEGRAM_WEBHOOK_URL      (ex: https://telegram-job-bot.onrender.com)
+      # GOOGLE_SPREADSHEET_ID
+      # GOOGLE_CREDENTIALS_JSON   (contenu du credentials.json encodé en base64)
+      # ADZUNA_APP_ID
+      # ADZUNA_APP_KEY
+      # JSEARCH_API_KEY

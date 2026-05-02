@@ -1,0 +1,30 @@
+{
+  "name": "telegram-job-bot",
+  "version": "2.0.0",
+  "description": "Bot Telegram de recherche d'offres d'emploi connecté à Google Sheets",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "lint": "eslint src/",
+    "webhook:set": "node src/webhook-setup.js set",
+    "webhook:delete": "node src/webhook-setup.js delete",
+    "webhook:info": "node src/webhook-setup.js info",
+    "encode-credentials": "node -e \"const fs=require('fs');console.log(Buffer.from(fs.readFileSync('./credentials.json')).toString('base64'));\""
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "googleapis": "^140.0.1",
+    "node-cache": "^5.1.2",
+    "node-telegram-bot-api": "^0.66.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
