@@ -15,22 +15,34 @@ export async function fetchJSearch(query) {
     ? `${query.keywords} remote`
     : `${query.keywords} ${query.location}`;
 
+  const reqParams = (page) => ({
+    params: {
+      query: queryStr,
+      page,
+      num_pages: 1,
+      date_posted: 'month',
+      country: 'fr',
+    },
+    headers: {
+      'X-RapidAPI-Key': apiKey,
+      'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+    },
+    timeout: 8000,
+  });
+
   try {
-    const { data } = await axios.get(BASE, {
-      params: {
-        query: queryStr,
-        page: 1,
-        num_pages: 2,
-        date_posted: 'month',
-        country: 'fr',
-      },
-      headers: {
-        'X-RapidAPI-Key': apiKey,
-        'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
-      },
-      timeout: 8000,
-    });
-    return (data.data || []).slice(0, 20).map(normalizeJSearch);
+    // Deux appels parallèles : page 1 + page 2 → 20 résultats bruts
+    const [res1, res2] = await Promise.allSettled([
+      axios.get(BASE, reqParams(1)),
+      axios.get(BASE, reqParams(2)),
+    ]);
+
+    const page1 = res1.status === 'fulfilled' ? (res1.value.data.data || []) : [];
+    const page2 = res2.status === 'fulfilled' ? (res2.value.data.data || []) : [];
+
+    console.log(`[jsearch] Page1=${page1.length} Page2=${page2.length}`);
+
+    return [...page1, ...page2].map(normalizeJSearch);
   } catch (err) {
     console.error('[jsearch] Erreur:', err.message);
     return [];
