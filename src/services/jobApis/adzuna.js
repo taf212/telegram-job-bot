@@ -14,7 +14,7 @@ export async function fetchAdzuna(query) {
   const params = {
     app_id: appId,
     app_key: appKey,
-    results_per_page: 20,
+    results_per_page: 30,
     what: query.keywords,
     where: query.location === 'France' ? '' : query.location,
     sort_by: 'date',

@@ -41,7 +41,7 @@ export async function fetchFranceTravail(query) {
 
   const params = {
     motsCles: query.keywords,
-    range: '0-19',
+    range: '0-29',
     sort: 1,
     ...(query.location !== 'France' && { commune: query.location }),
     ...(query.remote && { modesTravail: 'T' }), // T = télétravail

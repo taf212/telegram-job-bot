@@ -4,7 +4,7 @@ import { fetchFranceTravail } from './jobApis/franceTravail.js';
 import { fetchJSearch } from './jobApis/jsearch.js';
 import { scoreAndRank } from './scoring.js';
 
-const MAX_RESULTS = 10;
+const MAX_RESULTS = 20;
 
 /**
  * Agrège les résultats de toutes les APIs, score et retourne les 10 meilleures offres.

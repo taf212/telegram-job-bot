@@ -20,7 +20,7 @@ export async function fetchJSearch(query) {
       params: {
         query: queryStr,
         page: 1,
-        num_pages: 1,
+        num_pages: 2,
         date_posted: 'month',
         country: 'fr',
       },
